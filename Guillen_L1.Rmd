@@ -21,17 +21,17 @@ tail(merged_data[, 1:10], 6)
 str(merged_data[, 1:10])
 
 # Cleaning Data 
-#This might drop all rows
+# This might drop all rows
 merged_data <- na.omit(merged_data)
 
 # data back 
 merged_data <- read_parquet(file = "merged_data.parquet", stringsAsFactors = TRUE)
 
-#Subsetting Data 
+# Subsetting Data 
 #This does not change the origional data; it creates a new objet with just AZ data
 subset_data_az <- subset(merged_data, STATE_ABBR_2010SVI == "AZ")
 
-#Summarize data
+# Summarize data
 summary(subset_data_az[, 1:10], 6)
 
 # Mean and SD for upward modility 
@@ -49,32 +49,32 @@ upward_mean_2010_az
 subset_data_ca <- subset(merged_data, STATE_ABBR_2010SVI == "CA")
 print(upward_mean_2010_ca <- mean(subset_data_ca$upward_mobility_rate_2010))
 
-#print 
+# print 
 print(upward_sd_2010_ca <- sd(subset_data_ca$upward_mobility_rate_2010))
 print(upward_mean_2020_ca <- mean(subset_data_ca$upward_mobility_rate_2020))
 print(upward_sd_2020_ca <- sd(subset_data_ca$upward_mobility_rate_2020))
 
 
 
-#County Level Summary 
-#Pima County 
-#Upward Mean Pima County 
+# County Level Summary 
+# Pima County 
+# Upward Mean Pima County 
 print(pima_upward_mean_2010_az <- mean(subset_data_az$upward_mobility_rate_2010[subset_data_az$COUNTY_2010SVI == "Pima County"]))
-#SD Pima County 
+# SD Pima County 
 print(pima_upward_sd_2010_az <- sd(subset_data_az$upward_mobility_rate_2010[subset_data_az$COUNTY_2010SVI == "Pima County"]))
 
-#Repeat With Del Norte
+# Repeat With Del Norte
 print(delnorte_upward_mean_2010_ca <- mean(subset_data_ca$upward_mobility_rate_2010[subset_data_ca$COUNTY_2010SVI == "Del Norte County"]))
-#SD Del Norte
+# SD Del Norte
 print(delnorte_upward_sd_2010_ca <- sd(subset_data_ca$upward_mobility_rate_2010[subset_data_ca$COUNTY_2010SVI == "Del Norte County"]))
 
-#Install dplyr
+# Install dplyr
 install.packages("dplyr")
 
 # library for dplyr
 library(dplyr)
 
-#Summarize upward modility by county in AZ
+# Summarize upward modility by county in AZ
 summary_stats_upward_2010 <- subset_data_az %>%
   group_by(COUNTY_2010SVI) %>%
   summarize(mean_mobility_2010_az = mean(upward_mobility_rate_2010),
@@ -83,15 +83,15 @@ summary_stats_upward_2010 <- subset_data_az %>%
 # view results 
 (head(summary_stats_upward_2010))
 
-#visualization with ggplot2
+# visualization with ggplot2
 
-#install ggplot2
+# install ggplot2
 install.packages("ggplot2")
 
-#library
+# library
 library(ggplot2)
 
-#box plot to compare upward mobility between counties and arizona
+# box plot to compare upward mobility between counties and arizona
 mobility_plot <- ggplot(data = summary_stats_upward_2010,
                         mapping = aes(x= COUNTY_2010SVI, y=mean_mobility_2010_az)) +
   geom_boxplot()
@@ -109,10 +109,10 @@ mobility_plot <- ggplot(data = summary_stats_upward_2010_all,
   geom_boxplot()
 print(mobility_plot)
 
-#removing missing states
+# removing missing states
 summary_stats_upward_2010_all <- summary_stats_upward_2010_all[!is.na(summary_stats_upward_2010_all$STATE_ABBR_2010SVI),]
 
-#boxplot grouped by state
+# boxplot grouped by state
 mobility_plot <- ggplot(data = summary_stats_upward_2010_all,
                         mapping = aes(x= STATE_ABBR_2010SVI, y=mean_mobility_2010,
                                       fill = STATE_ABBR_2010SVI)) +
@@ -124,10 +124,10 @@ ggsave(plot = mobility_plot, filename = "output/mobility-plot-2010.pdf")
           
 
 
-#STUDENT ACTIVITIES
-#list counties in arizona
+# STUDENT ACTIVITIES
+# list counties in arizona
 table(subset_data_az$COUNTY_2010SVI)
-#list counties in california
+# list counties in california
 table(subset_data_ca$COUNTY_2010SVI)
             
 # county Yuma County 2010 Mean
@@ -145,16 +145,19 @@ print(yuma_upward_sd_2020_az <- sd(subset_data_az$upward_mobility_rate_2020[subs
 # compare results 
 
 
-#Compare 2020 results Yuma to AZ mean/SD
-# Yuma mean was  0.9891198 while AZ mean was 0.955, so the Yuma mean was slightly higher. 
-#Yuma SD was  0.8514353 while AZ was 1.288, higher than the Yuma SD.
+# Compare 2020 results Yuma to AZ mean/SD
+# Yuma mean was  0.989 while AZ mean was 0.955, so the Yuma mean was slightly higher. 
+#Yuma SD was  0.851 while AZ was 1.288, higher than the Yuma SD.
 
-#Comapre 2010 results Yuma to AZ mean/SD
-#Yuma mean was 0.989 while AZ mean was 0.955, so these did not change much between 2010 and 2020, the relationshi still remains the same. 
-#Yuma SD was  0.851 where AZ was 1.29, so the relationship remained the same and the numbers grew slightly between 2010 and 2020. 
+# Comapre 2010 results Yuma to AZ mean/SD
+# Yuma mean was 0.989 while AZ mean was 0.955, so these did not change much between 2010 and 2020, the relationshi still remains the same. 
+# Yuma SD was  0.851 where AZ was 1.29, so the relationship remained the same and the numbers grew slightly between 2010 and 2020. 
 
 
 #Box Plot 
+yuma_data <- subset_data_az %>%
+  filter(COUNTY_2010SVI == "Yuma County")
+
 
 
 
@@ -163,3 +166,4 @@ print(yuma_upward_sd_2020_az <- sd(subset_data_az$upward_mobility_rate_2020[subs
 # Reflect 
 # In what ways do povery rates change mobility rates? 
 # I am mostly confused on the box plots and also would like more information on how to complete the visualizations. For my first time ever using it I am proud of the work I have!
+# I am also a little confused with the software overall and I am still getting the hang of things. I am not exactly sure if everything is correct on my end. 
