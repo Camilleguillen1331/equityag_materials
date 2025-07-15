@@ -146,12 +146,13 @@ print(yuma_upward_sd_2020_az <- sd(subset_data_az$upward_mobility_rate_2020[subs
 
 
 # Compare 2020 results Yuma to AZ mean/SD
-# Yuma mean was  0.989 while AZ mean was 0.955, so the Yuma mean was slightly higher. 
-#Yuma SD was  0.851 while AZ was 1.288, higher than the Yuma SD.
+# Yuma mean was 0.989 while AZ mean was 0.955, so the Yuma mean was slightly higher. 
+#Yuma SD was 0.851 while AZ was 1.288, higher than the Yuma SD.
+
 
 # Comapre 2010 results Yuma to AZ mean/SD
-# Yuma mean was 0.989 while AZ mean was 0.955, so these did not change much between 2010 and 2020, the relationshi still remains the same. 
-# Yuma SD was  0.851 where AZ was 1.29, so the relationship remained the same and the numbers grew slightly between 2010 and 2020. 
+# Yuma mean was 0.989 while AZ mean was 0.955, so these did not change much between 2010 and 2020, the relationship still remains the same. 
+# Yuma SD was 0.851 where AZ was 1.29, so the relationship remained the same and the numbers grew slightly between 2010 and 2020. 
 
 
 #Box Plot 
@@ -186,7 +187,12 @@ print(mobility_plot_b)
 ggsave(plot = mobility_plot_a, filename = "output/mobility-plot-a-2010.pdf")
 # Save box plot B
 ggsave(plot = mobility_plot_b, filename = "output/mobility-plot-b-2010.pdf")
+
+# Filter Challenge
+
+
 # Reflect 
+
 # In what ways do povery rates change mobility rates? 
 # I am mostly confused on the box plots and also would like more information on how to complete the visualizations. For my first time ever using it I am proud of the work I have!
-# I am also a little confused with the software overall and I am still getting the hang of things. I am not exactly sure if everything is correct on my end. 
+# I am also a little confused with the software overall and I am still getting the hang of things. I am not exactly sure if everything is correct on my end but I think so!
