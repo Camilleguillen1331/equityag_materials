@@ -156,13 +156,36 @@ print(yuma_upward_sd_2020_az <- sd(subset_data_az$upward_mobility_rate_2020[subs
 
 #Box Plot 
 yuma_data <- subset_data_az %>%
-  filter(COUNTY_2010SVI == "Yuma County")
+  filter(COUNTY_2020SVI == "Yuma County")
+  print(yuma_data)
+  
+  summary_stats_yuma <- summary(yuma_data) 
+  summary_stats_yuma
+  
+summary_stats_yuma$M
+  
+  %>% 
+  
+#Box Plot 2010
+mobility_plot_a <- ggplot(data = yuma_data ,
+                        mapping = aes(x= COUNTY_2010SVI, y=upward_mobility_rate_2010,
+                                      fill = COUNTY_2010SVI)) +
+  geom_boxplot()
+print(mobility_plot_a)
 
+# Box Plot 2020
+mobility_plot_b <- ggplot(data = yuma_data ,
+                        mapping = aes(x= COUNTY_2010SVI, y=upward_mobility_rate_2020,
+                                      fill = COUNTY_2010SVI)) +
+  geom_boxplot()
+print(mobility_plot_b)
 
+# The distributions are equal. There re 3 outliers, all three are on the upper end of the distribution.
 
-
-
-
+# Save box plot A 
+ggsave(plot = mobility_plot_a, filename = "output/mobility-plot-a-2010.pdf")
+# Save box plot B
+ggsave(plot = mobility_plot_b, filename = "output/mobility-plot-b-2010.pdf")
 # Reflect 
 # In what ways do povery rates change mobility rates? 
 # I am mostly confused on the box plots and also would like more information on how to complete the visualizations. For my first time ever using it I am proud of the work I have!
